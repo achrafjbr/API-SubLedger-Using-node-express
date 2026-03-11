@@ -36,21 +36,21 @@ subscriptionRouter.get("/", authRoles('USER'), getSubscriptions);
  * @access private
  * @route /api/v1/subscription/:id
  */
-subscriptionRouter.get("/subscription/:id", authRoles('USER'), getSubscriptionById);
+subscriptionRouter.get("/:id", authRoles('USER'), getSubscriptionById);
 /**
  * @desc Update subscription by id
  * @method PUT
  * @access private
  * @route /api/v1/subscription/:id
  */
-subscriptionRouter.put("/subscription/:id", authRoles('USER'), updateSubscriptionById);
+subscriptionRouter.put("/:id", authRoles('USER'), updateSubscriptionById);
 /**
  * @desc Delete subscription by id
  * @method DELETE
  * @access private
  * @route /api/v1/subscription/:id
  */
-subscriptionRouter.delete("/subscription/:id", authRoles('USER'), deleteSubscriptionById);
+subscriptionRouter.delete("/:id", authRoles('USER'), deleteSubscriptionById);
 
 // id
 //name

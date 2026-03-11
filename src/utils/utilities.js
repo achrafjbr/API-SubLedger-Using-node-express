@@ -1,5 +1,6 @@
-const getHeaderToken = (request) =>request.headers.Authorization.split(" ")[1];
-
+const getHeaderToken = (request) => {
+  return request.headers.authorization.split(" ")[1];
+};
 
 module.exports = {
   getHeaderToken,

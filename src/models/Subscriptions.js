@@ -41,7 +41,7 @@ const subscriptionSchema = mongoose.Schema({
     enum: ["monthly", "yearly"],
     required: true,
   },
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
@@ -50,3 +50,7 @@ const subscriptionSchema = mongoose.Schema({
 }, { timestamps: true });
 
 const Subscription = mongoose.model("Subscription", subscriptionSchema);
+
+module.exports = {
+  Subscription
+}

@@ -3,9 +3,14 @@ const { getHeaderToken } = require("../utils/utilities");
 
 const isAuthenticated = (request, response, next) => {
   const token = getHeaderToken(request);
-  console.log("token",token);
-  request.user = token;
-  console.log("USER",request.user);
+  if (!token) {
+    return res.status(401).json({
+      message: "No token provided",
+    });
+  }
+  const decoded = verifyToken(token);
+  request.user = decoded;
+  console.log("USER", request.user);
   if (!token) return response.status(401).json({ message: "No token" });
   next();
 };
@@ -27,7 +32,19 @@ const isUser = (request, response, next) => {
 };
 
 const authRoles = (...roles) => {
-  return (response, request, next) => {
+  console.log(roles);
+
+  return (request, response, next) => {
+    const {
+      user: { role },
+    } = request;
+
+    if (!request.user) {
+      return res.status(401).json({
+        message: "User not authenticated",
+      });
+    }
+    console.log("role", role);
     if (!roles.includes(request.user.role)) {
       return response.status(403).json({
         message: "Forbidden",
