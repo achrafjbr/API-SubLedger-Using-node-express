@@ -1,18 +1,12 @@
 const { User } = require("../models/User");
 const {
   subscribe,
-  checkUserIsExisted,
   getUserSubscriptions,
   getSubscription,
   updateSubscription,
   deleteSubscription,
 } = require("../services/subscriptionService");
-/**
- * @desc add subscription
- * @method POST
- * @access private
- * @route /api/v1/subscription
- */
+
 
 const createSubscription = async (request, response) => {
   const { body } = request;
@@ -29,12 +23,7 @@ const createSubscription = async (request, response) => {
   }
 };
 
-/**
- * @desc Get subscriptions belong to connected user
- * @method GET
- * @access private
- * @route /api/v1/subscription
- */
+
 const getSubscriptions = async (request, response) => {
   // Lister les abonnements : jib les abbonement dial had user
   // Doit retourner uniquement les abonnements de l’utilisateur connecté: by using populate
@@ -53,12 +42,7 @@ const getSubscriptions = async (request, response) => {
   }
 };
 
-/**
- * @desc Get subscription by id & check if this sub beloging to connected user
- * @method GET
- * @access private
- * @route /api/v1/subscription/:id
- */
+
 const getSubscriptionById = async (request, response) => {
   // Voir un abonnement : jib abonement b id o xofha wax belongs to this user
   //Doit vérifier que l’abonnement appartient à l’utilisateur connecté
@@ -94,12 +78,7 @@ const getSubscriptionById = async (request, response) => {
   }
 };
 
-/**
- * @desc Update subscription by id
- * @method PUT
- * @access private
- * @route /api/v1/subscription/:id
- */
+
 const updateSubscriptionById = async (request, response) => {
   // xof id dial has abonnement wax fiha nafs id dial user 3ad dir update.
   // Accessible uniquement au propriétaire.
@@ -132,12 +111,7 @@ const updateSubscriptionById = async (request, response) => {
   }
 };
 
-/**
- * @desc Delete subscription by id
- * @method DELETE
- * @access private
- * @route /api/v1/subscription/:id
- */
+
 const deleteSubscriptionById = async (request, response) => {
   // xof id dial has abonnement wax fiha nafs id dial user 3ad dir delete.
   // Accessible uniquement au propriétaire.

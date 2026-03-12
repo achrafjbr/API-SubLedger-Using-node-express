@@ -16,7 +16,7 @@ app.use(`${PREFIX_ROUTE_PATH}/auth`, require('./src/routes/authenticationRouter'
 .authenticationRouter)
 app.use(`${PREFIX_ROUTE_PATH}/subscription`, require('./src/routes/subscriptionsRouter')
 .subscriptionRouter);
-//app.use(`${PREFIX_ROUTE_PATH}/users`)
+app.use(`${PREFIX_ROUTE_PATH}/users`, require('./src/routes/userRouter').userRouter);
 
 
 // Server.

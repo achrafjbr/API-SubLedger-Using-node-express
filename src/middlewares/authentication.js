@@ -3,6 +3,8 @@ const { getHeaderToken } = require("../utils/utilities");
 
 const isAuthenticated = (request, response, next) => {
   const token = getHeaderToken(request);
+  console.log("TOKEN", token);
+
   if (!token) {
     return res.status(401).json({
       message: "No token provided",
@@ -10,6 +12,8 @@ const isAuthenticated = (request, response, next) => {
   }
   const decoded = verifyToken(token);
   request.user = decoded;
+  console.log("DECODING TOKEN", decoded);
+
   console.log("USER", request.user);
   if (!token) return response.status(401).json({ message: "No token" });
   next();
@@ -35,10 +39,13 @@ const authRoles = (...roles) => {
   console.log(roles);
 
   return (request, response, next) => {
+    console.log('INSIDE AUTHROLE HANDLER');
+    console.log("CURRENT USER", request.user)
+    
     const {
       user: { role },
     } = request;
-
+    
     if (!request.user) {
       return res.status(401).json({
         message: "User not authenticated",
@@ -47,7 +54,7 @@ const authRoles = (...roles) => {
     console.log("role", role);
     if (!roles.includes(request.user.role)) {
       return response.status(403).json({
-        message: "Forbidden",
+        message: "You are not authorized! Access denied",
       });
     }
     next();
