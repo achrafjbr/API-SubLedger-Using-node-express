@@ -1,3 +1,4 @@
+const Joi = require("joi");
 const { User } = require("../models/User");
 const {
   subscribe,
@@ -6,12 +7,13 @@ const {
   updateSubscription,
   deleteSubscription,
 } = require("../services/subscriptionService");
-
+const {createSubscriptionSchema, paramSchema} =require('../utils/validation');
 
 const createSubscription = async (request, response) => {
   const { body } = request;
   const user = request.user;
-  console.log(user);
+ const {error} =  createSubscriptionSchema.validate(body);
+    if(error) return response.status(400).json({ error: error.details[0].message });
   try {
     const result = await subscribe(body);
     response.status(result.statusCode).json(result);
@@ -51,6 +53,9 @@ const getSubscriptionById = async (request, response) => {
   } = request; // [id] refers to the sub id
   const { user } = request;
 
+   const {error} =  paramSchema.validate(id);
+    if(error) return response.status(400).json({ error: error.details[0].message });
+
   try {
     const result = await getSubscription(id);
     console.log(result);
@@ -88,6 +93,8 @@ const updateSubscriptionById = async (request, response) => {
   } = request; // [id] refers to the sub id
   const { user } = request;
   const { body } = request;
+     const {error} =  paramSchema.validate(id);
+    if(error) return response.status(400).json({ error: error.details[0].message });
   try {
     const result = await getSubscription(id);
     // that's means we have success case
@@ -113,12 +120,15 @@ const updateSubscriptionById = async (request, response) => {
 
 
 const deleteSubscriptionById = async (request, response) => {
+  
   // xof id dial has abonnement wax fiha nafs id dial user 3ad dir delete.
   // Accessible uniquement au propriétaire.
   //Doit vérifier l’ownership.
   const {
     params: { id },
   } = request; // [id] refers to the sub id
+     const {error} =  paramSchema.validate(id);
+    if(error) return response.status(400).json({ error: error.details[0].message });
   try {
     const result = await getSubscription(id);
     // that's means we have success case
