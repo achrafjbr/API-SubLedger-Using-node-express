@@ -49,9 +49,12 @@ class SuccessMessage extends Message {
 
 class DIMessage {
     constructor(){}
+
   message(messageClass) {
         return messageClass.build();
     }
+
+    text(){}
 
 }
 

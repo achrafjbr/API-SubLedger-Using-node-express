@@ -3,8 +3,9 @@ const { findUserById } = require("../dao/user");
 const { Subscription } = require("../models/Subscriptions");
 const { DIMessage, ErrorMessage, SuccessMessage } = require("../utils/error");
 
-const subscribe = async (subscription) => {
-  const subscriptionData = await subscriptionDao.subscribe(subscription);
+const subscribe = async (subscription, id) => {
+  const sub = {...subscription, user:id}
+  const subscriptionData = await subscriptionDao.subscribe(sub);
   if (!subscriptionData)
     return new DIMessage().message(
       new ErrorMessage(500, "Something went wrong, try again"),
@@ -13,7 +14,7 @@ const subscribe = async (subscription) => {
     new SuccessMessage(201, "Success", subscriptionData),
   );
 };
-
+// consulter la liste des investisseurs d’un projet avec (nom, montant investie, pourcentage du capital)
 const getUserSubscriptions = async (userId) => {
   const user = await findUserById(userId);
   if (!user)
@@ -50,7 +51,6 @@ const updateSubscription = async (subscriptionId, body) => {
   let subscription = await Subscription.findByIdAndUpdate(
     subscriptionId,
     body,
-
     { returnDocument: true },
   );
   if (!subscription)

@@ -11,11 +11,11 @@ const {createSubscriptionSchema, paramSchema} =require('../utils/validation');
 
 const createSubscription = async (request, response) => {
   const { body } = request;
-  const user = request.user;
+  const {user: {id}} = request;
  const {error} =  createSubscriptionSchema.validate(body);
     if(error) return response.status(400).json({ error: error.details[0].message });
   try {
-    const result = await subscribe(body);
+    const result = await subscribe(body,id);
     response.status(result.statusCode).json(result);
   } catch (error) {
     response.status(500).json({
@@ -53,7 +53,7 @@ const getSubscriptionById = async (request, response) => {
   } = request; // [id] refers to the sub id
   const { user } = request;
 
-   const {error} =  paramSchema.validate(id);
+   const {error} =  paramSchema.validate({id:id});
     if(error) return response.status(400).json({ error: error.details[0].message });
 
   try {
@@ -93,7 +93,7 @@ const updateSubscriptionById = async (request, response) => {
   } = request; // [id] refers to the sub id
   const { user } = request;
   const { body } = request;
-     const {error} =  paramSchema.validate(id);
+     const {error} =  paramSchema.validate({id:id});
     if(error) return response.status(400).json({ error: error.details[0].message });
   try {
     const result = await getSubscription(id);

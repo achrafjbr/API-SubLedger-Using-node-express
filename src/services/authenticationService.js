@@ -9,7 +9,7 @@ const login = async (email, password) => {
   if (!user) {
     // Error
     return new DIMessage().message(
-      new ErrorMessage(400, "User already existed"),
+      new ErrorMessage(400, "User not existed"),
     );
   }
   // Compare between hash pass & current pass.

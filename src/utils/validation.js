@@ -4,7 +4,6 @@ const createSubscriptionSchema= Joi.object({
     name : Joi.string().required(),
     price : Joi.number().integer().required(),
     billingCycle:Joi.string().required(),
-    user:Joi.string().required(),
 });
 
 
@@ -20,7 +19,7 @@ const loginSchema= Joi.object({
 });
 
 const paramSchema = Joi.object({
-    id: Joi.string().email().required(),
+    id: Joi.string().required(),
 });
 
 module.exports = {
